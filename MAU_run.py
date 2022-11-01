@@ -123,9 +123,7 @@ def text_Wrapper(model):
                                                        is_training=False,
                                                        is_shuffle=False)
 
-    # itr = 1
-    itr = args.pretrained_model.split("-")[-1]
-    # for i in range(itr):
+    itr = 1
     for i in range(1):
         trainer.test(model, test_input_handle, args, itr)
 
@@ -150,6 +148,5 @@ if __name__ == '__main__':
     else:
         if not os.path.exists(args.gen_frm_dir):
             os.makedirs(args.gen_frm_dir)
-        for i in range(5000,80001,5000):
-            args.pretrained_model = "checkpoints/mau/model.ckpt-" + str(i)
-            text_Wrapper(model)
+
+        text_Wrapper(model)

@@ -74,6 +74,10 @@ class RNN(nn.Module):
                                                          kernel_size=(3, 3),
                                                          output_padding=(1, 1)
                                                          ))
+
+            decoder.add_module(name="res_cbam_d{0}".format(i),
+                               module=ResBlock_CBAM(self.num_hidden[-1], int(num_hidden[-1] / 4), downsampling=True))
+
             decoder.add_module(name='c_decoder_relu{0}'.format(i),
                                module=nn.LeakyReLU(0.2))
             decoders.append(decoder)
@@ -88,6 +92,10 @@ class RNN(nn.Module):
                                                          kernel_size=(3, 3),
                                                          output_padding=(1, 1)
                                                          ))
+
+            decoder.add_module(name="res_cbam_d{0}".format(n - 1),
+                               module=ResBlock_CBAM(self.num_hidden[-1], int(num_hidden[-1] / 4), downsampling=True))
+
             decoders.append(decoder)
         self.decoders = nn.ModuleList(decoders)
 
